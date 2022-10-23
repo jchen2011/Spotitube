@@ -17,48 +17,48 @@ public class PlaylistResource {
         this.playlistService = playlistService;
     }
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAllPlaylists(@QueryParam("token") String token) {
         return Response.ok(this.playlistService.getPlaylists(token)).build();
     }
 
-
-
     @DELETE
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response deletePlaylist(@PathParam("id") int id, String token) {
         playlistService.deletePlaylist(id, token);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
-    @Produces(MediaType.APPLICATION_JSON)
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addPlaylist(@QueryParam("token") String token, PlaylistDTO p) {
         playlistService.addPlaylist(token, p);
         return Response.ok(playlistService.getPlaylists(token)).build();
     }
 
-    @Produces(MediaType.APPLICATION_JSON)
     @PUT
     @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updatePlaylist(@PathParam("id") int id, PlaylistDTO p, @QueryParam("token") String token) {
         return Response.ok(playlistService.updatePlaylist(id, p.getName(), token)).build();
     }
 
     //TODO publicationDate should be a String representation of a Date, formatted as MM-dd-yyyy
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{id}/tracks")
     @GET
+    @Path("/{id}/tracks")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTracksFromPlaylist(@QueryParam("token") String token, @PathParam("id") int id) {
         return Response.ok(playlistService.getAllTracksFromPlaylist(token, id)).build();
     }
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}/tracks")
     @POST
+    @Path("/{id}/tracks")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addTrackToPlaylist(@PathParam("id") int id, TrackDTO track, String token) {
         return Response.ok(playlistService.addTrackToPlaylist(id, track, token)).build();
     }

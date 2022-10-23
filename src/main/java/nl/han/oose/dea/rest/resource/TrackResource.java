@@ -20,7 +20,6 @@ public class TrackResource {
     }
 
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @GET
     public Response getAvailableTracks(@QueryParam("token") String token, @QueryParam("forPlaylist") int forPlaylist) {
         return Response.ok(trackService.getAvailableTracks(forPlaylist, token)).build();

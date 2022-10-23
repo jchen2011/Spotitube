@@ -23,8 +23,8 @@ public class LoginResource {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response login(UserDTO u) {
         System.out.println("Login? " + u.getUser() + u.getPassword());
         return Response.ok(loginService.doLogin(u)).build();
