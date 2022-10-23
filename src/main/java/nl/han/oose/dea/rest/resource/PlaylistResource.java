@@ -26,7 +26,7 @@ public class PlaylistResource {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deletePlaylist(@PathParam("id") int id, String token) {
+    public Response deletePlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
         playlistService.deletePlaylist(id, token);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
@@ -59,7 +59,7 @@ public class PlaylistResource {
     @Path("/{id}/tracks")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTrackToPlaylist(@PathParam("id") int id, TrackDTO track, String token) {
+    public Response addTrackToPlaylist(@PathParam("id") int id, TrackDTO track, @QueryParam("token") String token) {
         return Response.ok(playlistService.addTrackToPlaylist(id, track, token)).build();
     }
 
