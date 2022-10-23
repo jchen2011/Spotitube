@@ -3,6 +3,7 @@ package nl.han.oose.dea.rest.datasource;
 import jakarta.inject.Inject;
 import nl.han.oose.dea.rest.datasource.util.DatabaseProperties;
 import nl.han.oose.dea.rest.services.dto.LoginResultDTO;
+import nl.han.oose.dea.rest.services.dto.UserDataDTO;
 
 
 import java.sql.*;
@@ -24,19 +25,19 @@ public class UserDAO {
         this.databaseProperties = databaseProperties;
     }
 
-    public UserData getUser(String username) {
+    public UserDataDTO getUser(String username) {
         try (Connection connection = DriverManager.getConnection(databaseProperties.connectionString())) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM spotitube.users WHERE username = ?");
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
-            UserData u = null;
+            UserDataDTO u = null;
             while (resultSet.next()) {
                 String userName = resultSet.getString(2);
                 String password = resultSet.getString(3);
                 String token = resultSet.getString(4);
                 String fullName = resultSet.getString(5);
 
-                u = new UserData(userName, fullName, token, password);
+                u = new UserDataDTO(userName, fullName, token, password);
             }
             return u;
         } catch (SQLException e) {

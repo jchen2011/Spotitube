@@ -27,8 +27,7 @@ public class PlaylistResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deletePlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
-        playlistService.deletePlaylist(id, token);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        return Response.ok(playlistService.deletePlaylist(id, token)).build();
     }
 
     @POST

@@ -17,6 +17,7 @@ public class LoginResource {
     public LoginResource() {
 
     }
+
     @Inject
     public LoginResource(LoginService loginService) {
         this.loginService = loginService;

@@ -48,33 +48,33 @@ public class PlaylistDAO {
         return new PlaylistResponseDTO(playlists, getTracklistTotalLength());
     }
 
-    public int deletePlaylist(int playlistId) {
+    public boolean deletePlaylist(int playlistId) {
         try {
             Connection connection = DriverManager.getConnection(databaseProperties.connectionString());
             PreparedStatement statement = connection.prepareStatement("DELETE FROM spotitube.playlists WHERE id = ?");
             statement.setInt(1, playlistId);
-            return statement.executeUpdate();
+            return statement.executeUpdate() == 1;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error communicating with database " + databaseProperties.connectionString(), e);
         }
-        return 0;
+        return false;
     }
 
-    public int updatePlaylist(int playlistId, String name) {
+    public boolean updatePlaylist(int playlistId, String name) {
         try {
             Connection connection = DriverManager.getConnection(databaseProperties.connectionString());
             PreparedStatement statement = connection.prepareStatement("UPDATE spotitube.playlists SET spotitube.playlists.name = ? WHERE spotitube.playlists.id = ?");
             statement.setString(1, name);
             statement.setInt(2, playlistId);
-            int resultSet = statement.executeUpdate();
+            boolean resultSet = statement.execute();
             return resultSet;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error communicating with database " + databaseProperties.connectionString(), e);
         }
-        return 0;
+        return false;
     }
 
-    public int addTrackToPlaylist(int playlistId, TrackDTO track) {
+    public boolean addTrackToPlaylist(int playlistId, TrackDTO track) {
         try {
             Connection connection = DriverManager.getConnection(databaseProperties.connectionString());
 
@@ -82,31 +82,17 @@ public class PlaylistDAO {
             statement.setInt(1, playlistId);
             statement.setInt(2, track.getId());
 
-            int resultSet = statement.executeUpdate();
+            boolean resultSet = statement.execute();
 
             return resultSet;
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error communicating with database " + databaseProperties.connectionString(), e);
         }
-        return 0;
+        return false;
     }
 
     //TODO alle error messages veranderen
-    public int getIdFromLatestTrack() {
-        try {
-            Connection connection = DriverManager.getConnection(databaseProperties.connectionString());
-            PreparedStatement statement = connection.prepareStatement("SELECT id FROM spotitube.tracks ORDER BY ID DESC LIMIT 1");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                return id;
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error communicating with database " + databaseProperties.connectionString(), e);
-        }
-        return 0;
-    }
 
     public List<TrackDTO> getAllTracksById(int id) {
         List<TrackDTO> tracks = new ArrayList<>();
@@ -129,7 +115,6 @@ public class PlaylistDAO {
                 TrackDTO track = new TrackDTO(trackId, title, performer, duration, album, playcount, publicationDate, description, offlineAvailable);
                 tracks.add(track);
             }
-            return tracks;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error communicating with database " + databaseProperties.connectionString(), e);
         }
@@ -152,18 +137,18 @@ public class PlaylistDAO {
         return length;
     }
 
-    public int deleteTrackFromPlaylist(int playlistId, int trackId) {
+    public boolean deleteTrackFromPlaylist(int playlistId, int trackId) {
         try {
             Connection connection = DriverManager.getConnection(databaseProperties.connectionString());
             PreparedStatement statement = connection.prepareStatement("DELETE FROM spotitube.trackinplaylist WHERE trackId = ? AND playlistId = ?");
             statement.setInt(1, trackId);
             statement.setInt(2, playlistId);
-            int resultSet = statement.executeUpdate();
+            boolean resultSet = statement.execute();
             return resultSet;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error communicating with database " + databaseProperties.connectionString(), e);
         }
-        return 0;
+        return false;
     }
 
     public TrackResponseDTO getAvailableTracks(int playlistId) {
