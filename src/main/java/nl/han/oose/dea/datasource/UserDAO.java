@@ -1,8 +1,7 @@
 package nl.han.oose.dea.datasource;
 
 import jakarta.inject.Inject;
-import nl.han.oose.dea.rest.datasource.util.DatabaseProperties;
-import nl.han.oose.dea.dto.outgoing.LoginResultDTO;
+import nl.han.oose.dea.dto.outgoing.LoginResponseDTO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
 
 
@@ -46,7 +45,7 @@ public class UserDAO {
         return null;
     }
 
-    public boolean addToken(LoginResultDTO user) {
+    public boolean addToken(LoginResponseDTO user) {
         try (Connection connection = DriverManager.getConnection(databaseProperties.connectionString())) {
             PreparedStatement statement = connection.prepareStatement("UPDATE users SET token = ? WHERE username = ?");
             statement.setString(1, user.getToken());

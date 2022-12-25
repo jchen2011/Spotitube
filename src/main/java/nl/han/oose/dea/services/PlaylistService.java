@@ -7,9 +7,10 @@ import nl.han.oose.dea.dto.incoming.PlaylistDTO;
 import nl.han.oose.dea.dto.outgoing.PlaylistResponseDTO;
 import nl.han.oose.dea.dto.incoming.TrackDTO;
 import nl.han.oose.dea.dto.outgoing.TrackResponseDTO;
+import nl.han.oose.dea.utils.UserAuth;
 
 
-public class PlaylistService {
+public class PlaylistService extends UserAuth {
     private PlaylistDAO playlistDAO;
     private UserDAO userDAO;
 
@@ -66,9 +67,7 @@ public class PlaylistService {
         return null;
     }
 
-    public boolean checkIfTokenExists(String token) {
-        return userDAO.getAllTokens().contains(token);
-    }
+
 
     public TrackResponseDTO addTrackToPlaylist(int playlistId, TrackDTO track, String token) {
         if (checkIfTokenExists(token)) {

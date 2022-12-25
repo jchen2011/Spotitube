@@ -1,7 +1,6 @@
 package nl.han.oose.dea.datasource;
 
 import jakarta.inject.Inject;
-import nl.han.oose.dea.rest.datasource.util.DatabaseProperties;
 import nl.han.oose.dea.dto.incoming.PlaylistDTO;
 import nl.han.oose.dea.dto.outgoing.PlaylistResponseDTO;
 import nl.han.oose.dea.dto.incoming.TrackDTO;

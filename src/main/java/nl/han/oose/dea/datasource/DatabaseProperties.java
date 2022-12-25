@@ -1,4 +1,4 @@
-package nl.han.oose.dea.rest.datasource.util;
+package nl.han.oose.dea.datasource;
 
 import java.io.IOException;
 import java.util.Properties;

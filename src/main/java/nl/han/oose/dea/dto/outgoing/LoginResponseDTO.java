@@ -1,6 +1,6 @@
 package nl.han.oose.dea.dto.outgoing;
 
-public class LoginResultDTO {
+public class LoginResponseDTO {
     private String user;
     private String token;
 
