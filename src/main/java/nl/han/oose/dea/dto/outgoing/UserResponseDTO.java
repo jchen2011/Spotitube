@@ -1,33 +1,28 @@
 package nl.han.oose.dea.dto.outgoing;
 
 public class UserResponseDTO {
-    private String userName;
-    private String fullName;
+    private String username;
     private String token;
     private String password;
 
-    public UserResponseDTO(String userName, String fullName, String token, String password) {
-        this.userName = userName;
-        this.fullName = fullName;
+    public UserResponseDTO() {
+
+    }
+
+    public UserResponseDTO(String username, String token, String password) {
+        this.username = username;
         this.token = token;
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public String getToken() {
         return token;

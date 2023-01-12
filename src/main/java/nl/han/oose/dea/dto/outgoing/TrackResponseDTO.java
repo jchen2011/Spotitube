@@ -5,6 +5,10 @@ import nl.han.oose.dea.dto.incoming.TrackDTO;
 import java.util.List;
 
 public class TrackResponseDTO {
+
+    public TrackResponseDTO() {
+
+    }
     public List<TrackDTO> getTracks() {
         return tracks;
     }

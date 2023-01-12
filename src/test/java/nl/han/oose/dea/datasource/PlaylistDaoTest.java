@@ -1,4 +1,4 @@
-package nl.han.oose.dea;
+package nl.han.oose.dea.datasource;
 
 import nl.han.oose.dea.datasource.PlaylistDAO;
 import org.junit.jupiter.api.BeforeEach;

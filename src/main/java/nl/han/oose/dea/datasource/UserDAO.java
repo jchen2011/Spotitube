@@ -34,9 +34,8 @@ public class UserDAO {
                 String userName = resultSet.getString(2);
                 String password = resultSet.getString(3);
                 String token = resultSet.getString(4);
-                String fullName = resultSet.getString(5);
 
-                u = new UserResponseDTO(userName, fullName, token, password);
+                u = new UserResponseDTO(userName, token, password);
             }
             return u;
         } catch (SQLException e) {
@@ -72,22 +71,8 @@ public class UserDAO {
         return tokens;
     }
 
-    public String getUsernameByToken(String token) {
-        try (Connection connection = DriverManager.getConnection(databaseProperties.connectionString())) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM spotitube.users WHERE spotitube.users.token = ?");
-            statement.setString(1, token);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String username = resultSet.getString(2);
-                return username;
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Can't find username", e);
-        }
-        return null;
-    }
 
-    public int getUserIdByToken(String token) {
+    public int getUserId(String token) {
         try (Connection connection = DriverManager.getConnection(databaseProperties.connectionString())) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM spotitube.users WHERE spotitube.users.token = ?");
             statement.setString(1, token);

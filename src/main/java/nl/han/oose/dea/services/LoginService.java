@@ -5,11 +5,8 @@ import nl.han.oose.dea.datasource.UserDAO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
 import nl.han.oose.dea.dto.outgoing.LoginResponseDTO;
 import nl.han.oose.dea.dto.incoming.UserDTO;
+import nl.han.oose.dea.services.exceptions.AuthenticationException;
 import nl.han.oose.dea.utils.UserAuth;
-import org.apache.commons.codec.digest.DigestUtils;
-
-
-import java.util.UUID;
 
 
 public class LoginService extends UserAuth {
@@ -20,24 +17,23 @@ public class LoginService extends UserAuth {
     }
 
     @Inject
-    public LoginService(UserDAO userDAO) {
+    public void setLoginService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
-    public LoginResponseDTO doLogin(UserDTO user) {
-        UserResponseDTO userDB = userDAO.getUser(user.getUser());
-        if (checkPassword(user, userDB)) {
+    public LoginResponseDTO authenticateAndGenerateToken(UserDTO u) {
+        UserResponseDTO userDB = userDAO.getUser(u.getUser());
+        if (checkPassword(u, userDB)) {
             LoginResponseDTO result = new LoginResponseDTO();
+
             String token = generateToken();
-            result.setUser(user.getUser());
             result.setToken(token);
             userDAO.addToken(result);
+
+            result.setUser(u.getUser());
             return result;
+        } else {
+            throw new AuthenticationException("Invalid credentials");
         }
-        return null;
     }
-
-
-
-
 }

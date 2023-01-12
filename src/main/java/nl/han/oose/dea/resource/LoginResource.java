@@ -19,7 +19,7 @@ public class LoginResource {
     }
 
     @Inject
-    public LoginResource(LoginService loginService) {
+    public void setLoginResource(LoginService loginService) {
         this.loginService = loginService;
     }
 
@@ -28,6 +28,6 @@ public class LoginResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(UserDTO u) {
         System.out.println("Login? " + u.getUser() + u.getPassword());
-        return Response.ok(loginService.doLogin(u)).build();
+        return Response.ok(loginService.authenticateAndGenerateToken(u)).build();
     }
 }

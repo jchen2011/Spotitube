@@ -15,20 +15,20 @@ public abstract class UserAuth {
     public UserAuth() {
 
     }
-
     @Inject
     public UserAuth(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
     public String generateToken() {
         return UUID.randomUUID().toString();
     }
 
     public boolean checkPassword(UserDTO user, UserResponseDTO userDB) {
-        return DigestUtils.sha256Hex(user.getPassword()).equals(userDB.getPassword()) && userDB.getUserName().equalsIgnoreCase(user.getUser());
+        return DigestUtils.sha256Hex(user.getPassword()).equals(userDB.getPassword());
     }
 
     public boolean checkIfTokenExists(String token) {
-        return userDAO.getAllTokens().contains(token);
+        return this.userDAO.getAllTokens().contains(token);
     }
 }
