@@ -9,11 +9,18 @@ import nl.han.oose.dea.services.exceptions.AuthenticationException;
 import nl.han.oose.dea.utils.UserAuth;
 
 
-public class LoginService extends UserAuth {
+public class LoginService {
+
+    private UserAuth userAuth;
     private UserDAO userDAO;
 
     public LoginService() {
 
+    }
+
+    @Inject
+    public LoginService(UserAuth userAuth) {
+        this.userAuth = userAuth;
     }
 
     @Inject
@@ -23,14 +30,16 @@ public class LoginService extends UserAuth {
 
     public LoginResponseDTO authenticateAndGenerateToken(UserDTO u) {
         UserResponseDTO userDB = userDAO.getUser(u.getUser());
-        if (checkPassword(u, userDB)) {
+        if (userAuth.checkPassword(u, userDB)) {
             LoginResponseDTO result = new LoginResponseDTO();
 
-            String token = generateToken();
-            result.setToken(token);
-            userDAO.addToken(result);
+            String token = userAuth.generateToken();
 
             result.setUser(u.getUser());
+            result.setToken(token);
+
+            userDAO.addToken(result);
+
             return result;
         } else {
             throw new AuthenticationException("Invalid credentials");

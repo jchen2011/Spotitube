@@ -6,16 +6,18 @@ import nl.han.oose.dea.dto.outgoing.TrackResponseDTO;
 import nl.han.oose.dea.services.exceptions.TokenDoesNotExistException;
 import nl.han.oose.dea.utils.UserAuth;
 
-public class TrackService extends UserAuth {
+public class TrackService {
+    private UserAuth userAuth;
     private PlaylistDAO playlistDAO;
 
     @Inject
-    public TrackService(PlaylistDAO playlistDAO) {
+    public TrackService(PlaylistDAO playlistDAO, UserAuth userAuth) {
         this.playlistDAO = playlistDAO;
+        this.userAuth = userAuth;
     }
 
     public TrackResponseDTO getAvailableTracks(int playlistId, String token) {
-        if (checkIfTokenExists(token)) {
+        if (userAuth.checkIfTokenExists(token)) {
             return playlistDAO.getAvailableTracks(playlistId);
         } else {
             throw new TokenDoesNotExistException("The token does not exist in the database");

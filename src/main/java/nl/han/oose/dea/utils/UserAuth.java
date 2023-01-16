@@ -8,13 +8,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.UUID;
 
-public abstract class UserAuth {
+public class UserAuth {
 
     private UserDAO userDAO;
 
-    public UserAuth() {
-
-    }
     @Inject
     public UserAuth(UserDAO userDAO) {
         this.userDAO = userDAO;
