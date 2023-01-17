@@ -35,6 +35,13 @@ public class PlaylistService {
         this.userDAO = userDAO;
     }
 
+    /**
+     * Gets all the playlist from the database
+     *
+     * @param token the user token
+     * @return the playlists and length as a {@link PlaylistResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
     public PlaylistResponseDTO getPlaylists(String token) {
         if (userAuth.checkIfTokenExists(token)) {
             int userId = userDAO.getUserId(token);
@@ -44,16 +51,32 @@ public class PlaylistService {
         }
     }
 
-    public PlaylistResponseDTO addPlaylist(String token, PlaylistDTO p) {
+    /**
+     * Adds the playlist with a new name to the database
+     *
+     * @param token the user token
+     * @param playlist the playlist with a new name
+     * @return the playlists and length as a {@link PlaylistResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
+    public PlaylistResponseDTO addPlaylist(String token, PlaylistDTO playlist) {
         if (userAuth.checkIfTokenExists(token)) {
             int userId = userDAO.getUserId(token);
-            playlistDAO.addPlaylist(userId, p.getName());
+            playlistDAO.addPlaylist(userId, playlist.getName());
             return playlistDAO.getAllPlaylists(userId);
         } else {
             throw new TokenDoesNotExistException("The token does not exist in the database");
         }
     }
 
+    /**
+     * Deletes the selected playlist from the database
+     *
+     * @param playlistId the id of the playlist that is going to be deleted
+     * @param token the user token
+     * @return the playlists and length as a {@link PlaylistResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
     public PlaylistResponseDTO deletePlaylist(int playlistId, String token) {
         if (userAuth.checkIfTokenExists(token)) {
             int userId = userDAO.getUserId(token);
@@ -64,15 +87,15 @@ public class PlaylistService {
         }
     }
 
-    public TrackResponseDTO getAllTracksFromPlaylist(String token, int playlistId) {
-        if (userAuth.checkIfTokenExists(token)) {
-            TrackResponseDTO tracks = new TrackResponseDTO(playlistDAO.getAllTracksById(playlistId));
-            return tracks;
-        } else {
-            throw new TokenDoesNotExistException("The token does not exist in the database");
-        }
-    }
-
+    /**
+     * Updates the selected playlist name in the database
+     *
+     * @param playlistId the id of the playlist that is going to be changed
+     * @param name the new name for the playlist
+     * @param token the user token
+     * @return the playlists and length as a {@link PlaylistResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
     public PlaylistResponseDTO updatePlaylist(int playlistId, String name, String token) {
         if (userAuth.checkIfTokenExists(token)) {
             int userId = userDAO.getUserId(token);
@@ -83,6 +106,31 @@ public class PlaylistService {
         }
     }
 
+    /**
+     * Gets all the tracks from the selected playlist in the database.
+     *
+     * @param token the user token
+     * @param playlistId the id of the playlist
+     * @return the tracks as a {@link TrackResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
+    public TrackResponseDTO getAllTracksFromPlaylist(String token, int playlistId) {
+        if (userAuth.checkIfTokenExists(token)) {
+            return new TrackResponseDTO(playlistDAO.getAllTracksById(playlistId));
+        } else {
+            throw new TokenDoesNotExistException("The token does not exist in the database");
+        }
+    }
+
+    /**
+     * Deletes the track from the playlist in the database.
+     *
+     * @param playlistId the id of the playlist
+     * @param trackId the id of the track
+     * @param token the user token
+     * @return the tracks as a {@link TrackResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
     public TrackResponseDTO deleteTrackFromPlaylist(int playlistId, int trackId, String token) {
         if (userAuth.checkIfTokenExists(token)) {
             playlistDAO.deleteTrackFromPlaylist(playlistId, trackId);
@@ -92,8 +140,15 @@ public class PlaylistService {
         }
     }
 
-
-
+    /**
+     * Adds a track to the selected playlist in the database.
+     *
+     * @param playlistId the id of the playlist
+     * @param track the new track information
+     * @param token the user token
+     * @return the tracks as a {@link TrackResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
     public TrackResponseDTO addTrackToPlaylist(int playlistId, TrackDTO track, String token) {
         if (userAuth.checkIfTokenExists(token)) {
             playlistDAO.addTrackToPlaylist(playlistId, track);

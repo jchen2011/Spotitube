@@ -19,15 +19,23 @@ public class LoginService {
     }
 
     @Inject
-    public LoginService(UserAuth userAuth) {
+    public void setUserAuth(UserAuth userAuth) {
         this.userAuth = userAuth;
     }
+
 
     @Inject
     public void setLoginService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
+    /**
+     * Authenticates the user. If the credentials are correct it will generate a token for the user.
+     *
+     * @param u the user that is trying to login
+     * @return the username and token as a {@link LoginResponseDTO}
+     * @throws AuthenticationException the credentials are invalid
+     */
     public LoginResponseDTO authenticateAndGenerateToken(UserDTO u) {
         UserResponseDTO userDB = userDAO.getUser(u.getUser());
         if (userAuth.checkPassword(u, userDB)) {

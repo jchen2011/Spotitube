@@ -16,6 +16,14 @@ public class TrackService {
         this.userAuth = userAuth;
     }
 
+    /**
+     * Get all the available tracks in the database.
+     *
+     * @param playlistId the id of the playlist
+     * @param token the user token
+     * @return the tracks as a {@link TrackResponseDTO}
+     * @throws TokenDoesNotExistException the token does not exist
+     */
     public TrackResponseDTO getAvailableTracks(int playlistId, String token) {
         if (userAuth.checkIfTokenExists(token)) {
             return playlistDAO.getAvailableTracks(playlistId);

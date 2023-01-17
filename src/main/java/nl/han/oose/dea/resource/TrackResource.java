@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import nl.han.oose.dea.dto.outgoing.TrackResponseDTO;
 import nl.han.oose.dea.services.TrackService;
 
 @Path("/tracks")
@@ -19,9 +20,16 @@ public class TrackResource {
         this.trackService = trackService;
     }
 
+    /**
+     * Get all the available tracks for a user to add for a given playlist
+     *
+     * @param token the user token
+     * @param playlistId the id of the playlist
+     * @return a status 200 "OK" with {@link TrackResponseDTO} as entity
+     */
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Response getAvailableTracks(@QueryParam("token") String token, @QueryParam("forPlaylist") int forPlaylist) {
-        return Response.ok(trackService.getAvailableTracks(forPlaylist, token)).build();
+    public Response getAvailableTracks(@QueryParam("token") String token, @QueryParam("forPlaylist") int playlistId) {
+        return Response.ok(trackService.getAvailableTracks(playlistId, token)).build();
     }
 }

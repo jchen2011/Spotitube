@@ -5,6 +5,7 @@ import nl.han.oose.dea.dto.incoming.TrackDTO;
 import java.util.List;
 
 public class TrackResponseDTO {
+    private List<TrackDTO> tracks;
 
     public TrackResponseDTO() {
 
@@ -16,8 +17,6 @@ public class TrackResponseDTO {
     public void setTracks(List<TrackDTO> tracks) {
         this.tracks = tracks;
     }
-
-    private List<TrackDTO> tracks;
 
     public TrackResponseDTO(List<TrackDTO> tracks) {
         this.tracks = tracks;
