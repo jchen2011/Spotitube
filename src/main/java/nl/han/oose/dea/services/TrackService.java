@@ -11,7 +11,7 @@ public class TrackService {
     private PlaylistDAO playlistDAO;
 
     @Inject
-    public TrackService(PlaylistDAO playlistDAO, UserAuth userAuth) {
+    public void setTrackService(PlaylistDAO playlistDAO, UserAuth userAuth) {
         this.playlistDAO = playlistDAO;
         this.userAuth = userAuth;
     }

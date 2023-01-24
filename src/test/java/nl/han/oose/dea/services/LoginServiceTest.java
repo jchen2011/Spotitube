@@ -13,11 +13,11 @@ import static org.mockito.Mockito.*;
 
 public class LoginServiceTest {
     private LoginService sut = new LoginService();
-    private UserDAO UserDAOFixture = mock(UserDAO.class);
+    private UserDAO userDAOFixture = mock(UserDAO.class);
     private UserAuth userAuthFixture = mock(UserAuth.class);
 
     private UserDTO userDTO = new UserDTO();
-    private LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+
     @BeforeAll
     static void setup(TestInfo testInfo) {
         System.out.println( "\033[0;1m" + testInfo.getDisplayName() + "\033[0m" );
@@ -31,7 +31,7 @@ public class LoginServiceTest {
         userDTO.setUser("jchen2011");
         userDTO.setPassword("1234");
 
-        sut.setLoginService(UserDAOFixture);
+        sut.setLoginService(userDAOFixture);
         sut.setUserAuth(userAuthFixture);
     }
 
@@ -48,7 +48,9 @@ public class LoginServiceTest {
         userDB.setUsername("jchen2011");
         userDB.setPassword("03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4");
 
-        when(UserDAOFixture.getUser(userDTO.getUser())).thenReturn(userDB);
+        when(userDAOFixture.getUser(userDTO.getUser())).thenReturn(userDB);
+        when(userAuthFixture.checkPassword(userDTO, userDB)).thenReturn(true);
+        when(userAuthFixture.generateToken()).thenReturn("1234-1234-1234");
 
         /* Act */
         LoginResponseDTO actual = sut.authenticateAndGenerateToken(userDTO);
@@ -62,7 +64,7 @@ public class LoginServiceTest {
     @DisplayName("Test for authenticate and generate token exception")
     public void authenticateAndGenerateTokenReturnsAuthenticationException() {
         /* Arrange */
-        doThrow(AuthenticationException.class).when(UserDAOFixture).getUser(userDTO.getUser());
+        doThrow(AuthenticationException.class).when(userDAOFixture).getUser(userDTO.getUser());
 
         /* Act & Assert */
         assertThrows(AuthenticationException.class, () -> sut.authenticateAndGenerateToken(userDTO));

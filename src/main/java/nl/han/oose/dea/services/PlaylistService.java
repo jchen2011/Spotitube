@@ -21,7 +21,7 @@ public class PlaylistService {
     }
 
     @Inject
-    public PlaylistService(UserAuth userAuth) {
+    public void setUserAuth(UserAuth userAuth) {
         this.userAuth = userAuth;
     }
 
