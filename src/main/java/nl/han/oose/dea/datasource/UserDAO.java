@@ -59,7 +59,7 @@ public class UserDAO extends DAO<UserResponseDTO>{
         setString(statement, token, 1);
         ResultSet set = executeQuery(statement);
 
-        return getInt(set, "userId");
+        return getIntFirstRow(set, "userId");
     }
 
     @Override

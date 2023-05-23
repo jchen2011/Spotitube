@@ -73,6 +73,7 @@ public class TrackDAO extends DAO<TrackDTO> {
         String sql = "SELECT DISTINCT * FROM spotitube.tracks WHERE spotitube.tracks.trackId NOT IN (SELECT kt_trackId FROM spotitube.trackinplaylist WHERE kt_playlistId = ?);";
 
         PreparedStatement statement = connect(sql);
+        setInt(statement, playlistId, 1);
         ResultSet set = executeQuery(statement);
 
         List<TrackDTO> tracks = convertMultiple(set, playlistId);

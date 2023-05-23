@@ -153,6 +153,23 @@ public abstract class DAO<E> {
      */
     protected int getInt(ResultSet set, String column) {
         try {
+                return set.getInt(column);
+        } catch (SQLException e) {
+            Log.console(FAILED_TO_RECEIVE_DATA + column + " with datatype Integer.", e);
+            throw new InternalServerError();
+        }
+    }
+
+    /**
+     * Method to get a {@link Integer} from a {@link ResultSet}.
+     * Will throw {@link InternalServerError} when failed to receive data.
+     *
+     * @param set The {@link ResultSet} used to get data
+     * @param column The column name in {@link ResultSet} as a {@link Integer}
+     * @return Data as a {@link Integer}
+     */
+    protected int getIntFirstRow(ResultSet set, String column) {
+        try {
             if (set.isBeforeFirst() && set.next()) {
                 return set.getInt(column);
             } else {

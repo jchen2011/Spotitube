@@ -76,6 +76,49 @@ public class PlaylistResource {
         return Response.ok(playlistService.updatePlaylist(id, playlist.getName(), token)).build();
     }
 
+    /**
+     * Get all track from the selected playlist
+     *
+     * @param token the user token
+     * @param id the id of the playlist
+     * @return a status 200 "OK" with {@link TrackResponseDTO} as entity
+     */
+    @GET
+    @Path("/{playlistId}/tracks")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllTracksFromPlaylist(@QueryParam("token") String token, @PathParam("playlistId") int id) {
+        return Response.ok(playlistService.getAllTracksFromPlaylist(token, id)).build();
+    }
 
+    /**
+     * Adds the given track to the selected playlist
+     *
+     * @param id the id of the playlist
+     * @param track the selected track
+     * @param token the user token
+     * @return a status 200 "OK" with {@link TrackResponseDTO} as entity
+     */
+    @POST
+    @Path("/{playlistId}/tracks")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addTrackToPlaylist(@PathParam("playlistId") int id, TrackDTO track, @QueryParam("token") String token) {
+        return Response.ok(playlistService.addTrackToPlaylist(id, track, token)).build();
+    }
+
+    /**
+     * Deletes the selected track from the selected playlist
+     *
+     * @param playlistId the id of the playlist
+     * @param trackId the id of the track
+     * @param token the user id
+     * @return a status 204 "No Content" with {@link TrackResponseDTO} as entity
+     */
+    @DELETE
+    @Path("/{playlistId}/tracks/{trackId}")
+    public Response deleteTrackFromPlaylist(@PathParam("playlistId") int playlistId, @PathParam("trackId") int trackId, @QueryParam("token") String token) {
+        playlistService.deleteTrackFromPlaylist(playlistId, trackId, token);
+        return Response.status(Response.Status.NO_CONTENT).build();
+    }
 
 }
