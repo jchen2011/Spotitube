@@ -1,18 +1,13 @@
 package nl.han.oose.dea.datasource;
 
-import jakarta.inject.Inject;
 import nl.han.oose.dea.dto.outgoing.LoginResponseDTO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
 import nl.han.oose.dea.services.exceptions.InternalServerError;
 import nl.han.oose.dea.utils.Log;
 
-
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserDAO extends DAO<UserResponseDTO>{
 
