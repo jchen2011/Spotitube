@@ -1,7 +1,7 @@
-package nl.han.oose.dea.datasource;
+package nl.han.oose.dea.datasource.DAO;
 
 import jakarta.inject.Inject;
-import nl.han.oose.dea.datasource.exceptions.QueryExecutionException;
+import nl.han.oose.dea.datasource.ConnectionCreator;
 import nl.han.oose.dea.services.exceptions.InternalServerError;
 import nl.han.oose.dea.utils.Log;
 
@@ -216,7 +216,7 @@ public abstract class DAO<E> {
             if (set.next()) {
                 return convert(set, id);
             } else {
-                return null;
+                throw new InternalServerError();
             }
         } catch (Exception e) {
             Log.console("Failed to execute a conversion.", e);

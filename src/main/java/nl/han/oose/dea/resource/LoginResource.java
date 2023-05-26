@@ -34,7 +34,6 @@ public class LoginResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(UserDTO user) {
-        System.out.println("Login? " + user.getUser() + user.getPassword());
         return Response.ok(loginService.authenticateAndGenerateToken(user)).build();
     }
 }

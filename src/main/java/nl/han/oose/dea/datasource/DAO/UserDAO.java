@@ -1,4 +1,4 @@
-package nl.han.oose.dea.datasource;
+package nl.han.oose.dea.datasource.DAO;
 
 import nl.han.oose.dea.dto.outgoing.LoginResponseDTO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends DAO<UserResponseDTO>{
+public class UserDAO extends DAO<UserResponseDTO> {
 
 
     public UserDAO() {
@@ -23,13 +23,7 @@ public class UserDAO extends DAO<UserResponseDTO>{
         setString(statement, username, 1);
         ResultSet set = executeQuery(statement);
 
-        List<UserResponseDTO> user = convertMultiple(set, 0);
-
-        if (!user.isEmpty()) {
-            return user.get(0);
-        } else {
-            throw new InternalServerError();
-        }
+        return convertOne(set, 0);
     }
 
     public void addToken(LoginResponseDTO user) {

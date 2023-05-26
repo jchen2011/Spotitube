@@ -1,8 +1,8 @@
 package nl.han.oose.dea.services;
 
-import nl.han.oose.dea.datasource.PlaylistDAO;
-import nl.han.oose.dea.datasource.TrackDAO;
-import nl.han.oose.dea.datasource.UserDAO;
+import nl.han.oose.dea.datasource.DAO.PlaylistDAO;
+import nl.han.oose.dea.datasource.DAO.TrackDAO;
+import nl.han.oose.dea.datasource.DAO.UserDAO;
 import nl.han.oose.dea.dto.incoming.PlaylistDTO;
 import nl.han.oose.dea.dto.incoming.TrackDTO;
 import nl.han.oose.dea.dto.outgoing.PlaylistResponseDTO;

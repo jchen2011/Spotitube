@@ -1,7 +1,7 @@
 package nl.han.oose.dea.services;
 
 import jakarta.inject.Inject;
-import nl.han.oose.dea.datasource.UserDAO;
+import nl.han.oose.dea.datasource.DAO.UserDAO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
 import nl.han.oose.dea.dto.outgoing.LoginResponseDTO;
 import nl.han.oose.dea.dto.incoming.UserDTO;

@@ -1,6 +1,7 @@
 package nl.han.oose.dea.datasource;
 
 
+import nl.han.oose.dea.datasource.DAO.UserDAO;
 import nl.han.oose.dea.dto.outgoing.LoginResponseDTO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
 import nl.han.oose.dea.services.exceptions.InternalServerError;
@@ -16,9 +17,8 @@ import org.junit.jupiter.api.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DisplayName("Test for UserDAO")
 public class UserDAOTest extends Tester {
@@ -147,7 +147,7 @@ public class UserDAOTest extends Tester {
         }
     }
 
-    //TODO
+
     @Test
     @DisplayName("Test for to get userId")
     public void getUserIdReturnsUserId() {

@@ -1,4 +1,4 @@
-package nl.han.oose.dea.datasource;
+package nl.han.oose.dea.datasource.DAO;
 
 import jakarta.inject.Inject;
 import nl.han.oose.dea.dto.incoming.PlaylistDTO;
@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.List;
 
 
-public class PlaylistDAO extends DAO<PlaylistDTO>{
+public class PlaylistDAO extends DAO<PlaylistDTO> {
 
     private TrackDAO trackDAO;
     public PlaylistDAO() {

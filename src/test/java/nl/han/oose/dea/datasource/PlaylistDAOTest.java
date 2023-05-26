@@ -1,5 +1,7 @@
 package nl.han.oose.dea.datasource;
 
+import nl.han.oose.dea.datasource.DAO.PlaylistDAO;
+import nl.han.oose.dea.datasource.DAO.TrackDAO;
 import nl.han.oose.dea.dto.incoming.PlaylistDTO;
 import nl.han.oose.dea.dto.incoming.TrackDTO;
 import nl.han.oose.dea.dto.outgoing.PlaylistResponseDTO;
@@ -13,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DisplayName("Test for PlaylistDAO")
 public class PlaylistDAOTest {
@@ -105,5 +106,41 @@ public class PlaylistDAOTest {
         }
     }
 
+    @Test
+    @DisplayName("Test for deleting a playlist")
+    public void deletePlaylist() {
+        /* Arrange */
+        int playlistId = 5;
 
+        /* Act */
+        assertDoesNotThrow(() -> sut.deletePlaylist(playlistId));
+
+        /* Assert */
+    }
+
+
+    @Test
+    @DisplayName("Test for updating a playlist")
+    public void updatePlaylist() {
+        /* Arrange */
+        int playlistId = 1;
+        String name = "heyhyy";
+
+        /* Act */
+        assertDoesNotThrow(() -> sut.updatePlaylist(playlistId, name));
+
+        /* Assert */
+    }
+
+    @Test
+    @DisplayName("Test for adding a playlist")
+    public void addPlaylist() {
+        /* Arrange */
+        int userId = 1;
+        String name = "heyhyy";
+
+        /* Act */
+        assertDoesNotThrow(() -> sut.addPlaylist(userId, name));
+        /* Assert */
+    }
 }

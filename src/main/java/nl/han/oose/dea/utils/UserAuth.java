@@ -1,7 +1,7 @@
 package nl.han.oose.dea.utils;
 
 import jakarta.inject.Inject;
-import nl.han.oose.dea.datasource.UserDAO;
+import nl.han.oose.dea.datasource.DAO.UserDAO;
 import nl.han.oose.dea.dto.incoming.UserDTO;
 import nl.han.oose.dea.dto.outgoing.UserResponseDTO;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -11,8 +11,12 @@ import java.util.UUID;
 public class UserAuth {
     private UserDAO userDAO;
 
+    public UserAuth() {
+
+    }
+
     @Inject
-    public UserAuth(UserDAO userDAO) {
+    public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -33,7 +37,6 @@ public class UserAuth {
      * @return a true or false as {@link boolean} whether the password are correct
      */
     public boolean checkPassword(UserDTO user, UserResponseDTO userDB) {
-        System.out.println(DigestUtils.sha256Hex(user.getPassword()));
         return DigestUtils.sha256Hex(user.getPassword()).equals(userDB.getPassword());
     }
 

@@ -1,9 +1,7 @@
 package nl.han.oose.dea.services;
 
 import jakarta.inject.Inject;
-import nl.han.oose.dea.datasource.PlaylistDAO;
-import nl.han.oose.dea.datasource.TrackDAO;
-import nl.han.oose.dea.dto.incoming.TrackDTO;
+import nl.han.oose.dea.datasource.DAO.TrackDAO;
 import nl.han.oose.dea.dto.outgoing.TrackResponseDTO;
 import nl.han.oose.dea.services.exceptions.TokenDoesNotExistException;
 import nl.han.oose.dea.utils.UserAuth;

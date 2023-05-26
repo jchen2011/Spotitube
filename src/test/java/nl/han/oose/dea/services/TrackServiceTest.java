@@ -1,6 +1,6 @@
 package nl.han.oose.dea.services;
 
-import nl.han.oose.dea.datasource.TrackDAO;
+import nl.han.oose.dea.datasource.DAO.TrackDAO;
 import nl.han.oose.dea.dto.incoming.TrackDTO;
 import nl.han.oose.dea.dto.outgoing.TrackResponseDTO;
 import nl.han.oose.dea.services.exceptions.TokenDoesNotExistException;
