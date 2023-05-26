@@ -1,6 +1,5 @@
 package nl.han.oose.dea.dto.incoming;
 
-import nl.han.oose.dea.dto.incoming.TrackDTO;
 
 import java.util.List;
 
@@ -8,7 +7,7 @@ public class PlaylistDTO {
     private int id;
     private String name;
     private boolean owner;
-    public List<TrackDTO> tracks;
+    private List<TrackDTO> tracks;
 
     public PlaylistDTO() {
 

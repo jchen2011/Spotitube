@@ -25,7 +25,11 @@ public class UserDAO extends DAO<UserResponseDTO>{
 
         List<UserResponseDTO> user = convertMultiple(set, 0);
 
-        return user.get(0);
+        if (!user.isEmpty()) {
+            return user.get(0);
+        } else {
+            throw new InternalServerError();
+        }
     }
 
     public void addToken(LoginResponseDTO user) {

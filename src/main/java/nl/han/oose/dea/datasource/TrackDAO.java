@@ -6,9 +6,7 @@ import nl.han.oose.dea.services.exceptions.InternalServerError;
 import nl.han.oose.dea.utils.Log;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class TrackDAO extends DAO<TrackDTO> {
 
@@ -34,8 +32,6 @@ public class TrackDAO extends DAO<TrackDTO> {
     }
 
     public int getTracklistTotalLength() {
-
-
         String sql = "SELECT spotitube.tracks.duration FROM spotitube.trackinplaylist INNER JOIN spotitube.tracks ON spotitube.tracks.trackId = spotitube.trackinplaylist.kt_trackId";
 
         PreparedStatement statement = connect(sql);
